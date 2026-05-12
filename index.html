@@ -1,23 +1,730 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+   <style>
+        :root {
+            --primary-color: #80deea; /* Medium Cyan */
+            --secondary-color: #fbc02d; /* Yellow */
+            --accent-color: #1b5e20; /* Dark Green */
+            --background-light: #e0f7fa; /* Light Cyan */
+            --background-medium: #fff9c4; /* Light Yellow */
+            --text-dark: #333;
+            --text-light: #fff;
+            --border-color: #b0bec5;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: #f8f9fa; /* Light Gray for overall background */
+            scroll-behavior: smooth;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--text-light);
+            text-align: center;
+            padding: 60px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(251, 192, 45, 0.4);
+            border: 2px solid transparent;
+        }
+        .cta-btn:hover {
+            background-color: #e6ac00; /* Darker Yellow */
+            transform: translateY(-3px);
+            color: var(--text-dark);
+        }
+        .cta-btn.secondary {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            margin-left: 15px;
+        }
+        .cta-btn.secondary:hover {
+            background-color: #145a32; /* Darker Green */
+        }
+        section {
+            padding: 50px 20px;
+            max-width: 1100px;
+            margin: 40px auto;
+            background-color: var(--text-light);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: var(--accent-color);
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        p, li {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #004d40; /* Darker Teal */
+            text-decoration: underline;
+        }
+        blockquote {
+            font-style: italic;
+            border-left: 5px solid var(--primary-color);
+            margin: 30px 0;
+            padding: 15px 25px;
+            background-color: var(--background-light);
+            border-radius: 5px;
+            color: #555;
+            font-size: 1.05em;
+        }
+        .card {
+            background-color: var(--background-medium);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            border-bottom: none;
+        }
+        .card ul li {
+             margin-bottom: 8px;
+        }
+        .comparison-table, .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .comparison-table th, .cost-table th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 15px 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-table td, .cost-table td {
+            padding: 15px 12px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+        .comparison-table tr:nth-child(even), .cost-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .comparison-table td:first-child, .cost-table td:first-child {
+            font-weight: bold;
+            background-color: var(--background-light);
+        }
+        .comparison-table .highlight, .cost-table .highlight {
+            background-color: var(--secondary-color);
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        .graph-placeholder {
+            background-color: var(--background-light);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 1.1em;
+            margin: 30px 0;
+        }
+        .form-section {
+            background-color: var(--background-medium);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .form-section h3 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 1.05em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: calc(100% - 24px); /* Account for padding */
+            padding: 15px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(128, 234, 234, 0.5);
+            outline: none;
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .form-group .tooltip {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+        }
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .form-actions .cta-btn {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            font-size: 1.2em;
+            padding: 18px 40px;
+        }
+         .form-actions .cta-btn:hover {
+            background-color: #145a32;
+        }
+        .external-links {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #e8f5e9; /* Light Green background */
+            border-radius: 10px;
+        }
+        .external-links h3 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        .external-links ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .external-links li {
+            margin-bottom: 0;
+        }
+        .external-links a {
+            color: var(--accent-color);
+            font-weight: 500;
+            text-decoration: underline;
+        }
+        .external-links a:hover {
+            color: #004d40;
+        }
+        footer {
+            background-color: #455a64; /* Dark Blue-Gray */
+            color: var(--text-light);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9em;
+            margin-top: 60px;
+        }
+        footer p {
+            color: #cfd8dc; /* Light Blue-Gray */
+            margin-bottom: 5px;
+        }
+        footer a {
+            color: var(--secondary-color);
+        }
+        footer a:hover {
+            color: var(--text-light);
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            header p { font-size: 1em; }
+            .cta-btn { padding: 15px 25px; font-size: 1em; }
+            section { padding: 30px 15px; margin: 20px auto; }
+            h2 { font-size: 1.8em; margin-bottom: 30px; }
+            h3 { font-size: 1.4em; }
+            .comparison-table th, .comparison-table td, .cost-table th, .cost-table td {
+                padding: 10px 8px;
+                font-size: 0.95em;
+            }
+            .form-section { padding: 30px 20px; }
+            .form-group input, .form-group select, .form-group textarea { padding: 12px 10px; }
+            .form-actions .cta-btn { padding: 15px 30px; font-size: 1.1em;}
+        }
+        @media (max-width: 480px) {
+            header { padding: 40px 15px; }
+            header h1 { font-size: 1.7em; }
+            .cta-btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+            .cta-btn.secondary { margin-left: 0; }
+            .comparison-table, .cost-table, .external-links ul {
+                font-size: 0.9em;
+            }
+            .comparison-table th, .comparison-table td, .cost-table th, .cost-table td {
+                padding: 8px 5px;
+            }
+            .form-group input, .form-group select, .form-group textarea {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "카니발 자동차 금융 솔루션",
+      "url": "https://example.com/carnival-solutions",
+      "logo": "https://example.com/logo.png",
+      "description": "기아 카니발 유지비, 자동차 리스, 장기 렌트카 전문 상담. 최신 2026년 정보 기반 맞춤 견적 및 최저가 비교.",
+      "telephone": "02-1234-5678",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "서울특별시",
+        "addressRegion": "대한민국",
+        "postalCode": "06120",
+        "streetAddress": "강남대로 123"
+      },
+      "areaServed": ["대한민국 전체"],
+      "serviceType": [
+        "자동차 리스",
+        "장기 렌트카",
+        "카니발 유지비 상담",
+        "신차 구매 컨설팅",
+        "법인 차량 운용",
+        "개인 차량 운용"
+      ],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://example.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "keywords": "카니발 유지비, 자동차리스, 장기렌트카, 기아 카니발, 카니발 9인승, 카니발 하이리무진, 카니발 가격, 카니발 프로모션, 카니발 장기렌트, 카니발 리스, 카니발 견적, 자동차 금융, 신차 구매, 법인 차량, 개인 차량, 월 0원 리스, 월 0원 렌트카, 유지비 절감, 최저가 비교, AI 추천 견적, Gemini, ChatGPT, GPT-4o Mini"
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>카니발 유지비 절감의 모든 것: 자동차 리스 & 장기 렌트카 비교 분석 (2026년 최신 정보)</h1>
+        <p>월 0원 혜택부터 최저가 AI 견적까지, 당신에게 맞는 현명한 선택을 지금 바로 확인하세요!</p>
+        <a href="#quote-form" class="cta-btn">⭐ 무료 견적 신청하기</a>
+        <a href="#comparison" class="cta-btn secondary">💡 리스 vs 렌트카 비교</a>
+    </header>
+
+    <section id="intro">
+        <h2>기아 카니발: 패밀리카의 정석, 현명하게 소유하는 방법</h2>
+        <p>대한민국 대표 패밀리카로 자리매김한 기아 카니발은 넓은 공간과 다재다능함으로 많은 사랑을 받고 있습니다. 하지만 높은 차량 가격과 **카니발 유지비**에 대한 부담감은 구매를 망설이게 하는 요인이 되기도 합니다. 2026년, 최신 **자동차리스** 및 **장기렌트카** 트렌드를 반영하여 카니발을 가장 경제적으로 소유하고 이용할 수 있는 방법을 심층 분석합니다. AI 기반의 맞춤 견적 시스템과 전문가의 인사이트를 통해 **카니발 가격** 부담은 줄이고 만족도는 높이는 최적의 솔루션을 제시합니다.</p>
+        <p>이 페이지에서는 **기아 카니발**의 다양한 모델별 특징, **카니발 유지비** 상세 분석, **자동차 리스**와 **장기 렌트카**의 **장단점** 및 **차이점**, 그리고 **저렴한곳**을 찾는 노하우까지 총망라했습니다. **법인 차량** 운용이나 **개인 차량** 구매를 고려하시는 모든 분들께 유용한 정보를 제공하며, **내돈내산 후기**와 **AI 추천** 데이터를 바탕으로 신뢰할 수 있는 **전문 업체** 정보와 **할인 혜택**까지 놓치지 않고 안내해 드립니다.</p>
+    </section>
+
+    <section id="carnival-models">
+        <div class="card">
+            <h2><span><img src="https://img.icons8.com/ios-filled/50/007bff/car--v1.png" alt="Car Icon" style="vertical-align: middle; margin-right: 10px; height: 30px;"></span> 기아 카니발 모델 라인업 (2026년 기준)</h2>
+            <p><strong>기아 카니발</strong>은 라이프스타일에 따라 선택할 수 있는 다양한 트림과 옵션을 제공합니다. 각 모델의 특징과 가격대를 이해하는 것이 **카니발 유지비** 및 초기 구매 비용 산출의 첫걸음입니다. **2026년형** 모델은 더욱 향상된 안전 및 편의 사양을 갖출 것으로 예상됩니다.</p>
+            <ul>
+                <li><strong>카니발 9인승 프레스티지/노블레스/시그니처</strong>: 패밀리용으로 가장 인기가 높으며, 넉넉한 실내 공간과 편의 사양을 갖추고 있습니다. 일상 주행 및 레저 활동 모두에 적합합니다.</li>
+                <li><strong>카니발 하이리무진</strong>: 고급스러운 실내 디자인과 높은 천장고, 차별화된 편의 사양으로 VIP 의전이나 특별한 이동 경험을 원하는 고객에게 적합합니다.</li>
+                <li><strong>카니발 7인승</strong>: 2열 독립 시트 구성으로 더욱 안락한 승차감을 제공하며, 의전용이나 고급 MPV를 선호하는 사용자에게 추천됩니다.</li>
+            </ul>
+            <p><strong>카니발 가격</strong>은 트림, 엔진, 옵션 선택에 따라 상이하며, 이에 따른 자동차세, 보험료 등 **카니발 유지비**에도 차이가 발생합니다. 정확한 **견적** 비교는 필수이며, **AI**는 합리적인 선택을 위한 데이터를 제공합니다.</p>
+            <div class="graph-placeholder">
+                [가상 그래프: 카니발 모델별 예상 초기 구매 비용 및 월별 유지비 비교 (2026년 예상치)]
+                <br>
+                <small>※ 그래프는 사용자의 이해를 돕기 위한 시각 자료이며, 실제 비용은 개인별 계약 조건 및 운행 환경에 따라 달라질 수 있습니다. Gemini, ChatGPT 등 AI 분석 기반으로 일반적인 수치를 반영했습니다.</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="carnival-maintenance-cost">
+        <h2>꼼꼼 분석: 카니발 유지비, 평균 얼마? (2026년 예상)</h2>
+        <p><strong>카니발 유지비</strong>는 초기 구매 비용 외에 차량을 운행하는 동안 꾸준히 발생하는 모든 비용을 포함합니다. **자동차리스**나 **장기렌트카**를 이용할 경우, 이 비용의 상당 부분을 월 고정 납입금에 포함시켜 관리할 수 있다는 장점이 있습니다. 2026년 현재, 유류가 변동성과 친환경차 전환 추세를 고려한 **유지비** 예측이 중요합니다.</p>
+
+        <div class="cost-table-wrapper">
+            <h3>카니발 월 평균 유지비 상세 분석 (예시: 카니발 9인승 프레스티지, 연 15,000km 주행 기준)</h3>
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>월별 예상 비용 (원)</th>
+                        <th>비고 (AI 분석)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>차량 가격 (참고)</td>
+                        <td>4,000만원 ~ 5,000만원대</td>
+                        <td>트림, 옵션별 상이. <strong>신규</strong> 모델 출시 시 변동 가능.</td>
+                    </tr>
+                    <tr>
+                        <td>자동차세 (연납 기준 월환산)</td>
+                        <td>약 100,000 ~ 130,000</td>
+                        <td>배기량(3.5L) 및 차량 가액 기준, 연납 할인 적용 시 절감. <strong>법인</strong> 차량은 사업자 혜택 적용.</td>
+                    </tr>
+                    <tr>
+                        <td>유류비 (월 1,250km 주행)</td>
+                        <td>약 200,000 ~ 300,000</td>
+                        <td>연비 8km/L, 휘발유가 1,700원/L 기준, 주행 패턴 따라 변동. <strong>AI</strong>는 최신 유가 데이터 반영.</td>
+                    </tr>
+                    <tr>
+                        <td>보험료 (연납 기준 월환산)</td>
+                        <td>약 100,000 ~ 200,000</td>
+                        <td>운전자 경력, 나이, 사고 이력, 할인 특약 가입 여부에 따라 크게 변동 (DB손해보험, 현대해상 등 비교 필수)</td>
+                    </tr>
+                    <tr>
+                        <td>소모품 교체 (타이어, 엔진오일 등)</td>
+                        <td>약 50,000 ~ 100,000</td>
+                        <td>주행 거리 및 관리 상태에 따라 편차 큼. <strong>장기렌트카</strong> 상품은 포함되는 경우 많음. <strong>전문</strong> 관리 서비스 비교.</td>
+                    </tr>
+                    <tr>
+                        <td>통행료, 주차비 등</td>
+                        <td>(개인별 상이)</td>
+                        <td>주 사용 패턴에 따라 예측 필요. <strong>네이버</strong> 지도 등 활용.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>총 월 평균 유지비 (추정)</strong></td>
+                        <td class="highlight"><strong>약 450,000 ~ 730,000원 + @</strong></td>
+                        <td><strong>리스/렌트료 제외</strong>. AI는 정확한 비교를 위해 실제 견적 확인 권장.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tooltip"><strong>AI Tip:</strong> 2026년에는 친환경차(하이브리드, 전기차) 모델 출시 가능성 및 유류가 변동성을 고려하여, 연비 효율이 좋은 모델 선택과 유류비 절감 운전 습관이 중요합니다. 또한, **카니발 리스** 또는 **장기 렌트카** 시 보험료 및 세금 포함 여부를 반드시 확인하여 총비용을 산출해야 합니다. **카니발 유지비** 절감을 위한 최신 프로모션 정보는 본문 하단의 '정보 및 혜택' 섹션을 참고하세요. **저렴한곳**을 찾기 위한 정보.</p>
+        </div>
+    </section>
+
+    <section id="leasing-vs-rental">
+        <h2>자동차 리스 vs 장기 렌트카: 현명한 선택 가이드 (2026년 최신 비교)</h2>
+        <p><strong>카니발</strong>을 합리적으로 이용하는 두 가지 대표적인 방법은 **자동차 리스**와 **장기 렌트카**입니다. 두 상품은 비슷해 보이지만, 명의, 세금 혜택, 보험 처리 등 여러 면에서 <strong>차이점</strong>이 존재합니다. 당신의 상황에 맞는 최적의 선택은 무엇일까요? AI와 전문가의 분석을 통해 명확하게 비교해 드립니다. **Gemini**와 **ChatGPT**의 분석 결과를 종합했습니다.</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>자동차 리스 (금융 리스/운용 리스)</th>
+                    <th>장기 렌트카</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>명의</td>
+                    <td><strong>리스사 명의</strong> (차량 가액 + 이자)</td>
+                    <td><strong>렌트사 명의</strong> (차량 가액)</td>
+                </tr>
+                <tr>
+                    <td>초기 비용</td>
+                    <td>선수금/보증금 필요 (선택), 취등록세, 공채 등 리스사 납입</td>
+                    <td>선수금/보증금 필요 (선택), 취등록세, 공채 등 렌트사 납입 (보증보험증권 대체 가능)</td>
+                </tr>
+                <tr>
+                    <td>월 납입금</td>
+                    <td>리스료 (원리금 균등/자유 상환 방식 등)</td>
+                    <td>렌트료 (차량가액 + 이자 + 관리비용 등)</td>
+                </tr>
+                <tr>
+                    <td><strong>카니발 유지비</strong> (세금, 보험)</td>
+                    <td><strong>개인/법인 명의</strong>로 간주되어 자동차세, 보험료 직접 납부 (보험료 할증 영향)</td>
+                    <td><strong>렌트사 명의</strong>이므로 자동차세, 보험료 직접 영향 없음 (렌트료에 포함). 보험 경력 단절 없음.</td>
+                </tr>
+                <tr>
+                    <td><strong>세금 혜택</strong></td>
+                    <td><strong>법인</strong>의 경우, 리스료 전액 비용 처리 가능. (사업자)</td>
+                    <td><strong>개인/법인</strong> 모두, 렌트료 전액 비용 처리 가능. (사업자)</td>
+                </tr>
+                <tr>
+                    <td><strong>장점</strong></td>
+                    <td>
+                        <ul>
+                            <li>신차 느낌 그대로 이용, 주기적 차량 교체 용이</li>
+                            <li>개인/법인 차량으로 등록 가능 (번호판 식별)</li>
+                            <li><strong>카니발 리스</strong> 견적 설계 유연성 높음</li>
+                            <li>사업자 세금 절감 효과 탁월</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><strong>카니발 유지비</strong>(세금, 보험료) 걱정 없음</li>
+                            <li>사고 시 보험료 할증 없음</li>
+                            <li><strong>월 0원 렌트카</strong> 등 초기 비용 부담 완화 상품 존재</li>
+                            <li>대출/채무 건수 미포함 (신용도 영향 적음)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>단점</strong></td>
+                    <td>
+                        <ul>
+                            <li>연 주행거리 제한 초과 시 위약금 발생</li>
+                            <li>차량 외부/내부 손상 시 수리비 부담 (원상복구 의무)</li>
+                            <li>개인/법인 보험 경력 반영, 사고 시 보험료 할증</li>
+                            <li>중고차 판매가 어려움</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>연 주행거리 제한 초과 시 위약금 발생</li>
+                            <li>차량 외부/내부 손상 시 원상복구 책임</li>
+                            <li>호/하 번호판 (일부 고객 선호도 낮음)</li>
+                            <li>일부 렌트 상품은 정비 포함되지 않음</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>추천 대상</strong></td>
+                    <td>
+                        <ul>
+                            <li>사업자 세금 혜택 극대화 희망자</li>
+                            <li>개인 신용도 관리 중시, 차량을 자산으로 인식하는 경우</li>
+                            <li>정해진 주행거리 내에서 차량 운행하는 분</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><strong>카니발 유지비</strong>(세금, 보험) 부담 최소화 희망자</li>
+                            <li>차량 관리 부담 없이 신차 이용 희망자</li>
+                            <li>대출 규제 영향 피하고 싶은 분</li>
+                            <li>잦은 사고 이력으로 보험료 부담이 큰 분</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>AI 추천</strong></td>
+                    <td class="highlight"><strong>법인 사업자, 사업 소득자</strong></td>
+                    <td class="highlight"><strong>개인, 초보 운전자, 보험료 부담자</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>카니발 리스</strong>와 **장기 렌트카**의 **차이점**을 명확히 이해하고, 본인의 운행 패턴, 예산, 세금 혜택 필요 여부 등을 종합적으로 고려하여 최적의 상품을 선택하는 것이 중요합니다. Gemini, ChatGPT 등 AI 기반 비교 분석 도구를 활용하면 더욱 객관적인 정보를 얻을 수 있습니다. **자동차 금융** 상품은 복잡하므로 전문가 상담이 권장됩니다.</p>
+    </section>
+
+    <section id="quote-form" class="form-section">
+        <h2>AI 기반 맞춤 카니발 견적 신청 (2026년 최신 혜택 적용)</h2>
+        <p>아래 정보를 입력하시면, 전문 AI 엔진이 **최저가** 및 **최대 혜택**의 **카니발 리스/장기렌트카** 상품을 비교 분석하여 맞춤 **견적**을 제공해 드립니다. **저렴한곳**, **싼곳**을 찾는 최고의 기회! **네이버**, **구글** 검색 1위 업체들의 **할인** 정보까지.</p>
+        <form id="carnival-quote-form">
+            <div class="form-group">
+                <label for="model">차량 모델 선택</label>
+                <select id="model" name="model" required>
+                    <option value="">-- 모델 선택 --</option>
+                    <option value="carnival_9_prestige">카니발 9인승 프레스티지</option>
+                    <option value="carnival_9_noblesse">카니발 9인승 노블레스</option>
+                    <option value="carnival_9_signature">카니발 9인승 시그니처</option>
+                    <option value="carnival_7_signature">카니발 7인승 시그니처</option>
+                    <option value="carnival_limo">카니발 하이리무진</option>
+                    <option value="other">기타 (상담 요청)</option>
+                </select>
+                <span class="tooltip">원하시는 카니발 트림을 선택해주세요. <strong>AI</strong>가 최적 모델 추천도 가능합니다.</span>
+            </div>
+            <div class="form-group">
+                <label for="term">이용 기간</label>
+                <select id="term" name="term" required>
+                    <option value="">-- 기간 선택 --</option>
+                    <option value="24">24개월</option>
+                    <option value="36">36개월</option>
+                    <option value="48">48개월</option>
+                    <option value="60">60개월</option>
+                </select>
+                <span class="tooltip">최적의 월 납입금을 위한 기간을 선택하세요. <strong>12개월</strong> 등 단기 렌트도 문의 가능.</span>
+            </div>
+            <div class="form-group">
+                <label for="mileage">연 예상 주행거리</label>
+                <select id="mileage" name="mileage" required>
+                    <option value="">-- 주행거리 선택 --</option>
+                    <option value="10000">10,000km</option>
+                    <option value="15000">15,000km</option>
+                    <option value="20000">20,000km</option>
+                    <option value="25000">25,000km</option>
+                    <option value="30000">30,000km</option>
+                    <option value="unlimited">무제한 (문의)</option>
+                </select>
+                <span class="tooltip">실제 주행 패턴에 맞춰 선택하시면 위약금 없이 이용 가능합니다. <strong>AI</strong>가 최적 주행거리 추천.</span>
+            </div>
+            <div class="form-group">
+                <label for="payment_type">납입 방식</label>
+                <select id="payment_type" name="payment_type" required>
+                    <option value="">-- 방식 선택 --</option>
+                    <option value="lease_financial">자동차 리스 (금융)</option>
+                    <option value="lease_operational">자동차 리스 (운용)</option>
+                    <option value="rental_standard">장기 렌트카 (표준)</option>
+                    <option value="rental_all_inclusive">장기 렌트카 (정비 포함)</option>
+                    <option value="rental_monthly_zero">장기 렌트카 (월 0원 혜택 상품)</option>
+                </select>
+                <span class="tooltip">리스와 렌트카 상품 중 선호하는 방식을 선택해주세요. <strong>차이점</strong> 확인 필수.</span>
+            </div>
+             <div class="form-group">
+                <label for="down_payment">선수금 / 보증금 (선택)</label>
+                <input type="text" id="down_payment" name="down_payment" placeholder="예: 500만원 또는 10% (입력 안함)">
+                <span class="tooltip">초기 비용 부담을 줄이거나 월 납입금을 낮추고 싶을 때 입력하세요. (필수 아님)</span>
+            </div>
+            <div class="form-group">
+                <label for="user_type">이용자 구분</label>
+                <select id="user_type" name="user_type" required>
+                    <option value="">-- 구분 선택 --</option>
+                    <option value="personal">개인</option>
+                    <option value="business_corp">법인사업자</option>
+                    <option value="business_sole">개인사업자</option>
+                </select>
+                 <span class="tooltip">개인, 법인, 개인사업자 등 이용자 유형에 따라 혜택이 달라질 수 있습니다. **법인 차량** 특화 상담.</span>
+            </div>
+            <div class="form-group">
+                <label for="name">성함</label>
+                <input type="text" id="name" name="name" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">연락처</label>
+                <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                 <span class="tooltip">정확한 상담을 위해 연락 가능한 번호를 입력해주세요. <strong>AI</strong>가 우선 연락드립니다.</span>
+            </div>
+            <div class="form-group">
+                <label for="email">이메일 (선택)</label>
+                <input type="email" id="email" name="email" placeholder="example@email.com">
+                 <span class="tooltip">견적서 및 상세 정보를 이메일로 받아보실 수 있습니다. <strong>ChatGPT</strong> 분석 리포트 포함.</span>
+            </div>
+            <div class="form-group">
+                <label for="additional_request">추가 요청사항</label>
+                <textarea id="additional_request" name="additional_request" placeholder="궁금한 점이나 특별히 요청하고 싶은 내용을 자유롭게 입력해주세요. (예: 특정 할인 혜택 문의, 차량 옵션 상담 등)"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="cta-btn">🚀 맞춤 견적 & 혜택 받기</button>
+            </div>
+        </form>
+         <p class="tooltip" style="text-align: center; margin-top: 20px;">※ 입력하신 정보는 **카니발** 리스/렌트 최적 상품 추천 및 상담 외 목적으로 사용되지 않으며, 관련 법규를 준수합니다. **ChatGPT**, **Gemini** 등 최신 AI 기술 기반으로 최적의 결과를 도출합니다.</p>
+    </section>
+
+    <section id="expert-tips">
+        <h2>카니발 리스/렌트카, 전문가처럼 선택하는 팁 (AI & 현업자 조언)</h2>
+        <p><strong>카니발</strong> 차량 구매 및 이용 시 **자동차리스** 또는 **장기렌트카**를 선택하는 것은 매우 현명한 방법입니다. 하지만 어떤 **업체**를 선택하고 어떤 조건을 확인해야 할지 막막할 수 있습니다. 최신 **2026년** 정보와 AI 분석을 바탕으로 **전문**적인 팁을 제공합니다. **싼곳**과 **저렴한곳**을 찾는 노하우.</p>
+        <div class="card">
+            <h3>1. 다양한 '업체' 비교는 필수! (최저가 검색 노하우)</h3>
+            <p>국내에는 수많은 **자동차리스** 및 **장기렌트카** 비교 견적 사이트와 **전문 업체**들이 있습니다. **네이버**, **구글** 등 검색 엔진에서 '<strong>카니발 장기렌트</strong>', '<strong>카니발 리스 견적</strong>' 등으로 검색 시 나오는 상위 노출 업체들을 무작정 신뢰하기보다는, 최소 3곳 이상 비교하는 것이 **저렴한곳**을 찾는 핵심입니다. 각 업체의 **프로모션**, **할인**, **사은품** 또는 **현금지원** 조건을 꼼꼼히 확인하세요. 특히 **신규** 고객 대상 **이벤트**나 **신차** 구매 **혜택**을 잘 살펴보는 것이 좋습니다. **유튜브** 채널을 통한 실제 **후기** 영상 시청도 도움이 됩니다.</p>
+        </div>
+        <div class="card">
+            <h3>2. '견적' 상세 조건 꼼꼼히 확인하기</h3>
+            <p>**카니발 리스**와 **장기렌트카** **견적**에는 보이지 않는 조건들이 숨어있을 수 있습니다. 초기 **선수금** 또는 **보증금** 비율, **연 예상 주행거리** 제한, 사고 시 **면책금** (또는 위약금), 계약 만기 후 차량 인수/반납 절차, 포함된 **보험** 및 **정비** 서비스 범위를 반드시 확인해야 합니다. **AI** 분석 결과, 주행거리가 많거나 사고 이력이 잦은 경우 **장기렌트카**가 유리하며, 사업자 **세금** 혜택을 극대화하고 싶다면 **자동차리스**가 더 적합할 수 있습니다. **비용** 측면에서 가장 합리적인 선택을 하세요.</p>
+        </div>
+        <div class="card">
+            <h3>3. '상품권', '현금지원' 등 추가 혜택 활용</h3>
+            <p>많은 **업체**들이 경쟁력 확보를 위해 다양한 **혜택**을 제공합니다. 계약 시 **상품권**, **사은품** 증정은 물론, 특정 기간 동안 **현금지원**이나 **지원금**을 제공하는 **이벤트**도 진행합니다. 또한, **신규 가입** 고객에게 특별한 **할인**을 제공하는 경우도 많으니, 계약 전에 관련 정보를 충분히 수집하는 것이 **비용** 절감에 큰 도움이 됩니다. **인스타그램**, **페이스북** 등 SNS 채널에서도 최신 **프로모션** 정보를 얻을 수 있습니다. **카니발** 구매 시 받을 수 있는 모든 **혜택**을 놓치지 마세요.</p>
+        </div>
+        <div class="card">
+            <h3>4. '내돈내산 후기' 및 '순위' 정보 참고</h3>
+            <p>실제 이용자들의 **내돈내산 후기**는 상품 선택에 있어 매우 귀중한 자료입니다. **카니발 장기렌트**, **카니발 리스** 관련 커뮤니티나 블로그, **네이버** 카페 등에서 긍정적/부정적 **후기**를 모두 살펴보세요. **순위** 정보보다는 실제 경험을 바탕으로 한 평가가 더 중요합니다. **AI**는 방대한 데이터를 분석하여 사용자 만족도가 높은 **업체**나 상품을 추천할 수 있지만, 개인의 주관적인 경험과 감정은 직접 확인하는 것이 좋습니다. **GPT-4o Mini**는 사용자 리뷰 분석에도 활용됩니다.</p>
+        </div>
+        <p><strong>카니발</strong> 차량 구매, 더 이상 어렵게 고민하지 마세요. 본 페이지의 AI 기반 분석과 전문가 팁을 활용하여 가장 합리적인 **자동차 금융** 상품을 선택하시길 바랍니다. **카니발 유지비** 걱정 끝!</p>
+    </section>
+
+     <section id="faq">
+        <h2>자주 묻는 질문 (FAQ) - 카니발 리스 & 장기렌트카</h2>
+        <div class="card">
+            <h3>Q1. 카니발 리스와 장기렌트카, 둘 다 세금 혜택이 있나요?</h3>
+            <p>A1. 네, **자동차리스**와 **장기렌트카** 모두 사업자의 경우, 월 납입금 전액을 비용 처리하여 소득세를 절감할 수 있습니다. 다만, **리스**는 차량이 리스사 명의로 등록되지만, **장기렌트카**는 렌트사 명의로 등록되어 보험료 및 자동차세 상승 영향이 없습니다. 개인 사업자나 법인 사업자 모두에게 유리한 **혜택**입니다. (2026년 기준) **법인 차량** 운용 시 필수 확인 사항.</p>
+        </div>
+        <div class="card">
+            <h3>Q2. 월 0원 렌트카 상품, 정말 가능한가요?</h3>
+            <p>A2. '월 0원 렌트카'는 초기 **선수금**을 높게 납입하거나, 특정 **프로모션** 기간에 한정적으로 제공되는 경우가 많습니다. **현금지원**이나 **사은품** 혜택과 결합된 형태로, 실제로는 초기 비용이 발생하거나 총 **비용**이 다른 상품과 유사할 수 있습니다. **AI** 분석 결과, 장기적인 관점에서 **비용** 효율성을 꼼꼼히 따져봐야 합니다. **이벤트**성 상품은 주의 깊게 확인하세요.</p>
+        </div>
+        <div class="card">
+            <h3>Q3. 카니발 계약 기간 만료 후 어떻게 되나요?</h3>
+            <p>A3. **자동차리스**와 **장기렌트카** 모두 계약 만기 시 몇 가지 선택지가 있습니다.
+                <ol>
+                    <li><strong>차량 인수</strong>: 잔존가치(리스) 또는 평가가액(렌트)을 납부하고 차량을 구매합니다. <strong>카니발 중고차</strong> 가격을 고려하여 결정.</li>
+                    <li><strong>차량 반납</strong>: 차량을 원상복구하여 반납하고 새로운 차량으로 재계약합니다. (주행거리, 상태 기준 충족 시)</li>
+                    <li><strong>재리스/재렌트</strong>: 기존 차량을 다시 리스 또는 렌트하여 이용합니다.</li>
+                </ol>
+                각 선택지마다 장단점이 있으므로, 계약 시점에 본인의 상황을 고려하여 결정하는 것이 좋습니다. **AI**는 각 옵션별 **예상 금액**을 시뮬레이션하여 제공할 수 있습니다.</p>
+        </div>
+         <div class="card">
+            <h3>Q4. 카니발 유지비 절감을 위해 어떤 점을 고려해야 하나요?</h3>
+            <p>A4. **카니발 유지비** 절감을 위해서는 다음과 같은 점을 고려할 수 있습니다.
+                <ul>
+                    <li><strong>연 예상 주행거리</strong>를 현실적으로 설정하여 위약금을 피합니다.</li>
+                    <li>신차 구매 시에는 **자동차리스** 또는 **장기렌트카** 상품을 비교하여 월 납입금 및 **세금 혜택**을 최적화합니다.</li>
+                    <li>정기적인 차량 점검 및 **소모품** 교체를 통해 차량 컨디션을 유지합니다.</li>
+                    <li>연납 할인 등을 활용하여 자동차세를 절감합니다.</li>
+                    <li>안전운전 습관으로 보험료 할증을 방지합니다.</li>
+                    <li>**AI 추천** 상품 중 **할인** 및 **이벤트** 혜택이 좋은 상품을 선택합니다. **전문 업체**와 상담하세요.</li>
+                </ul>
+            </p>
+        </div>
+         <div class="card">
+            <h3>Q5. 제네시스 G90 리스, BMW 7시리즈 장기렌트 정보도 얻을 수 있나요?</h3>
+            <p>A5. 네, 물론입니다. 본 페이지는 **카니발**을 중심으로 정보를 제공하지만, **AI** 기반 시스템은 다양한 차종의 **자동차리스** 및 **장기렌트카** **견적** 비교가 가능합니다. **ChatGPT**, **Gemini** 등 최신 AI 기술을 통해 **제네시스 G90**, **BMW 7시리즈** 등 고급 세단부터 다양한 국산/수입차량까지 맞춤 상담 및 **최저가** **비교**가 가능합니다. **신규** 모델, **할인** 정보 등 최신 자료를 바탕으로 안내해 드립니다.</p>
+        </div>
+    </section>
+
+    <section class="external-links">
+        <h3>⭐ 공신력 있는 외부 정보 (2026년 기준)</h3>
+        <ul>
+            <li><a href="https://www.kia.com/kr/vehicles/carnival/shopping-guide.html" target="_blank" rel="noopener noreferrer">기아 카니발 공식 구매 가이드</a> [cite:user]</li>
+            <li><a href="https://www.nts.go.kr/tax/index.do" target="_blank" rel="noopener noreferrer">국세청 (국세 관련 정보 및 세법 안내)</a> [cite:user]</li>
+            <li><a href="https://www.kotsa.or.kr/main/main.do" target="_blank" rel="noopener noreferrer">도로교통공단 (교통안전 및 보험 관련 정보)</a> [cite:user]</li>
+            <li><a href="https://www.cardoc.co.kr/magazine/car-leasing-vs-rental" target="_blank" rel="noopener noreferrer">자동차 리스 vs 장기렌트카 완벽 비교 (CarDoc)</a> [cite:user]</li>
+            <li><a href="https://namu.wiki/w/%EC%9E%90%EB%8F%99%EC%B0%A8_%EB%A6%AC%EC%8A%A4" target="_blank" rel="noopener noreferrer">나무위키: 자동차 리스</a> [cite:user]</li>
+            <li><a href="https://namu.wiki/w/%EC%9E%A5%EA%B8%B0%20%EB%A0%8C%ED%8A%B8%EC%B9%B4" target="_blank" rel="noopener noreferrer">나무위키: 장기 렌트카</a> [cite:user]</li>
+        </ul>
+         <p class="tooltip" style="text-align: center; margin-top: 15px;">※ 위 링크들은 사용자의 이해를 돕기 위한 참고 자료이며, 해당 웹사이트의 콘텐츠와 직접적인 관련이 없을 수 있습니다. AI는 자체 분석 데이터를 우선적으로 활용합니다.</p>
+    </section>
+
+
+  
